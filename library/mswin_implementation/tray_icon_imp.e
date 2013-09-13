@@ -128,6 +128,7 @@ feature -- Access
 
 	destroy
 		do
+			hide
 			hidden_window.destroy
 			set_is_destroyed (True)
 		end
@@ -173,6 +174,15 @@ feature {EV_ANY, EV_ANY_I} -- Implementation
 		attribute
 		end
 
+
+
 invariant
+
+note
+	library:	"Eiffel_Tray_Icon: A cross-platform library to use tray icon with Eiffel Vision 2."
+	copyright:	"Copyright (c) 2013, Louis Marchand"
+	license:	"The MIT License (MIT) (see http://opensource.org/licenses/MIT)"
+	
+	
 
 end

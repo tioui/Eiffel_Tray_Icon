@@ -1,8 +1,10 @@
 note
-	description: "Summary description for {TRAY_GTK_EXTERNAL}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "[
+				External Gtk method used by the tray icon library.
+				]"
+	author: "Louis Marchand"
+	date: "september 12, 2013"
+	revision: "v0.1"
 
 class
 	TRAY_GTK_EXTERNAL
@@ -53,5 +55,14 @@ feature -- gtk.h
 		external
 			"C (GtkStatusIcon*) : gboolean | <gtk/gtk.h>"
 		end
+
+
+invariant
+
+note
+	library:	"Eiffel_Tray_Icon: A cross-platform library to use tray icon with Eiffel Vision 2."
+	copyright:	"Copyright (c) 2013, Louis Marchand"
+	license:	"The MIT License (MIT) (see http://opensource.org/licenses/MIT)"
+
 
 end

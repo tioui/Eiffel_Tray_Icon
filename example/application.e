@@ -24,23 +24,70 @@ feature {NONE} -- Initialization
 		end
 
 	prepare
+			-- Set the default tray icon configuration.
 		local
 			l_tray_icon:TRAY_ICON
 		do
-			create l_tray_icon.make_from_file ("icone.ico")
-		--	l_tray_icon.set_icon_from_ressource (12345)	-- To get icon from ressource file (Windows Only of course)
-			l_tray_icon.set_title("Coucou, Yahoo!!!")
-			l_tray_icon.set_tooltip ("Un peu d'aide!")
-			l_tray_icon.activate_action.extend (agent print("Using the tray icon!%N"))
-			l_tray_icon.popup_action.extend (agent destroying(l_tray_icon))
-			l_tray_icon.show
+			create tray_icon.make_from_file ("icone.ico")		-- Create the icon from file.
+																-- On Windows, it must be a ico file (32x32 or 16x16)
+		--	tray_icon.set_icon_from_ressource (54321)			-- You can also load file from a windows ressource file (on windows)
+																-- On unix, it does nothing (you can keep it there, it will not bug anything)
+			tray_icon.set_title("The application title!!!")		-- Don't do anything in Windows (you can keep it there, it will not bug anything)
+			tray_icon.set_tooltip ("A little help here!")		-- The message to show on mouse over.
+			tray_icon.activate_action.extend (agent on_activate)	-- When the icon is activated (normaly on left click)
+			tray_icon.popup_action.extend (agent on_popup)		-- When the icon request a popup menu (normaly on right click)
+																-- Note that you don't need to show a popup menu, you can do wathever you want!
+			tray_icon.show										-- The tray icon is hidden at the creation. So, after initialisation, show it.
+		end
+
+feature {NONE} -- Implementation
+
+	on_activate
+			-- Message box when Left click on the tray icon.
+		local
+			l_information:EV_INFORMATION_DIALOG
+		do
+			create l_information.make_with_text ("Tray icon has been activated!")
+			l_information.show
+			l_information.raise		-- Give the information window the focus
+		end
+
+	on_popup
+			-- Popup menu when right click on the tray icon.
+		local
+			l_x, l_y:INTEGER
+			l_screen:EV_SCREEN
+			l_pointer_position:EV_COORDINATE
+			l_popup:EV_MENU
+			l_quit_menu_item:EV_MENU_ITEM
+			l_env:EXECUTION_ENVIRONMENT
+		do
+			create l_env
+			create l_screen
+			l_pointer_position:=l_screen.pointer_position
+			l_x:=l_pointer_position.x
+			l_y:=l_pointer_position.y
+			create l_popup
+			create l_quit_menu_item.make_with_text_and_action ("Quit", agent destroying)
+			l_popup.extend (l_quit_menu_item)
+			if l_popup.height+l_y>l_screen.height-40 then
+				l_y:=l_y-l_popup.height-40
+			end
+			if l_popup.width+l_x>l_screen.width-40 then
+				l_x:=l_x-l_popup.width-40
+			end
+			l_popup.show_at (Void, l_x, l_y)
+			l_env.sleep (100000000)		-- This delay is to be sure that the tray icon mouse button release don't make the popup desapear (on linux)
 		end
 
 
-	destroying(a_tray_icon:TRAY_ICON)
+	destroying
+			-- Quitting the program.
 		do
-			a_tray_icon.destroy
+			tray_icon.destroy
 			destroy
 		end
+
+	tray_icon:TRAY_ICON
 
 end -- class APPLICATION
