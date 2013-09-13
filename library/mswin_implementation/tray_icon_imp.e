@@ -31,6 +31,7 @@ create
 feature {NONE} -- Initialization
 
 	old_make (a_interface: like interface)
+			-- <Precursor>
 		do
 			assign_interface (a_interface)
 		end
@@ -51,6 +52,7 @@ feature -- Access
 
 
 	set_icon_from_pixmap(a_pixmap:EV_PIXMAP)
+			-- <Precursor>
 		do
 			check attached {EV_PIXMAP_IMP} a_pixmap.implementation as la_pixmap_imp then
 				if la_pixmap_imp.icon /= Void then
@@ -61,7 +63,7 @@ feature -- Access
 		end
 
 	set_icon_from_ressource(a_id:NATURAL)
-			-- Only for Windows
+			-- <Precursor>
 		local
 			l_icon_ptr:POINTER
 		do
@@ -79,6 +81,7 @@ feature -- Access
 		end
 
 	set_icon_from_file(a_file:READABLE_STRING_GENERAL)
+			-- <Precursor>
 		local
 			l_utf_converter:UTF_CONVERTER
 			l_file_ptr, l_icon_ptr:POINTER
@@ -99,34 +102,39 @@ feature -- Access
 		end
 
 	set_tooltip (a_tooltip: READABLE_STRING_GENERAL)
-			-- Set `a_tooltip' to `notify_icon_data'.
+			-- <Precursor>
 		do
 			hidden_window.set_tooltip (a_tooltip)
 			update
 		end
 
 	set_title(a_text:READABLE_STRING_GENERAL)
+			-- <Precursor>
 		do
 		end
 
 	is_visible:BOOLEAN
+			-- <Precursor>
 		do
 			Result:=i_is_visible
 		end
 
 	show
+			-- <Precursor>
 		do
 			hidden_window.add_notify_icon
 			i_is_visible:=True
 		end
 
 	hide
+			-- <Precursor>
 		do
 			hidden_window.remove_notify_icon
 			i_is_visible:=False
 		end
 
 	destroy
+			-- <Precursor>
 		do
 			hide
 			hidden_window.destroy
@@ -136,6 +144,7 @@ feature -- Access
 feature {NONE} -- Implementation
 
 	on_activate(l_button:INTEGER)
+			-- When the tray icon signal is received by the window, active the events.
 		do
 			if l_button={TRAY_MSWIN_EXTERNAL}.WM_LBUTTONUP then
 				activate_action.call ([])
@@ -146,10 +155,13 @@ feature {NONE} -- Implementation
 		end
 
 	i_is_visible:BOOLEAN
+			-- The last known visibility state of the tray icon.
 
 	hidden_window:WEL_NOTIFY_WINDOW
+			-- The internal window that received the tray icon signal message.
 
 	update
+			-- Update the last modification of the tray icon.
 		do
 			if is_visible then
 				hidden_window.update_notify_icon
@@ -157,6 +169,7 @@ feature {NONE} -- Implementation
 		end
 
 	set_icon_from_pointer(a_pointer:POINTER)
+			-- Create a {WEL_ICON} from the C HICON {POINTER} `a_pointer' and use it as tray icon image.
 		require
 			not a_pointer.is_default_pointer
 		local
