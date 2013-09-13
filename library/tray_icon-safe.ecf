@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-11-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-11-0 http://www.eiffel.com/developers/xml/configuration-1-11-0.xsd" name="tray_icon-safe" uuid="20D3DD19-F014-48A5-B6C2-FF1DC90DA267" library_target="tray_icon">
+	<target name="tray_icon">
+		<root all_classes="true"/>
+		<option warning="true" void_safety="all">
+			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
+		</option>
+		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
+		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2-safe.ecf"/>
+		<library name="wel" location="$ISE_LIBRARY\library\wel\wel-safe.ecf">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+		</library>
+		<cluster name="gtk_implementation" location=".\gtk_implementation\" recursive="true">
+			<condition>
+				<platform value="unix"/>
+			</condition>
+		</cluster>
+		<cluster name="kernel" location=".\kernel\" recursive="true">
+			<file_rule>
+				<exclude>/EIFGENs$</exclude>
+			</file_rule>
+		</cluster>
+		<cluster name="mswin_implementation" location=".\mswin_implementation\" recursive="true">
+			<condition>
+				<platform value="windows"/>
+			</condition>
+		</cluster>
+	</target>
+</system>
