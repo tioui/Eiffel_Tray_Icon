@@ -1,11 +1,17 @@
 Eiffel_Tray_Icon
 ================
 
-Multi-platform library to use system tray icon with Eiffel Vision 2.
+Multi-platform library to use system tray icon with Eiffel Vision 2. 
 
+USAGE
+-----
+
+ - In EiffelStudio, create a Vision 2 project.
+ - Add the library/tray_icon(-safe).ecf file in your project libraries.
+ - Look at the exemple to see how to use it.
 
 NOTES
-=====
+-----
 
 On the unity desktop, you have to enable you application to the systray-whitelist to make the tray icon appear.
 First, if you don't realy care about what application is in your system tray, you can said unity to 
@@ -29,8 +35,14 @@ if there is already some application in the whitelist, use a command like this o
 Starting from Ubuntu 13.04, this Whitelist method does not work out of the box. To make it work, use the 
 unity-systrayfix package. See: https://launchpad.net/~timekiller/+archive/unity-systrayfix
 
+Credit
+------
+
+The Nice Dog Icon is from wpclipart (http://openiconlibrary.sourceforge.net/gallery2/?./Icons/others/animals-dog.png) and
+is in the Public Domain.
+
 LICENCE
-=======
+-------
 
 The MIT License (MIT)
 
@@ -53,8 +65,3 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Credit
-======
-
-The Nice Dog Icon is from wpclipart (http://openiconlibrary.sourceforge.net/gallery2/?./Icons/others/animals-dog.png) and
-is in the Public Domain.
