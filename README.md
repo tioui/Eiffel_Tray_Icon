@@ -3,6 +3,32 @@ Eiffel_Tray_Icon
 
 Multi-platform library to use system tray icon with Eiffel Vision 2.
 
+
+NOTES
+=====
+
+On the unity desktop, you have to enable you application to the systray-whitelist to make the tray icon appear.
+First, if you don't realy care about what application is in your system tray, you can said unity to 
+add in the system tray all application that request it. To do so, use the following command:
+
+		gsettings set com.canonical.Unity.Panel systray-whitelist "['all']"
+
+If you just want to add your application, you here is what you have to do.
+Before adding you application to the whitelist, look if there is already something in it with this command:
+
+		gsettings get com.canonical.Unity.Panel systray-whitelist
+
+If there is no application in the whitelist, use this command to add your application:
+
+		gsettings set com.canonical.Unity.Panel systray-whitelist "['YOUR_APPLICATION']"
+
+if there is already some application in the whitelist, use a command like this one (adapt it of cource):
+
+		gsettings set com.canonical.Unity.Panel systray-whitelist "['APP1', 'APP2', ..., 'YOUR_APPLICATION']"
+
+Starting from Ubuntu 13.04, this Whitelist method does not work out of the box. To make it work, use the 
+unity-systrayfix package. See: https://launchpad.net/~timekiller/+archive/unity-systrayfix
+
 LICENCE
 =======
 
