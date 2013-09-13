@@ -2,5 +2,7 @@
 
 STRINGTABLE
 BEGIN
-	1 "This Program was made using EiffelStudio using GCC"
+	1 "This Program was made using EiffelStudio."
 END
+
+12345 ICON DISCARDABLE "icone.ico"
