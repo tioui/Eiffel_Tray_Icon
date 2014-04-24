@@ -9,6 +9,10 @@ class
 
 inherit
 	EV_APPLICATION
+	    redefine
+	    	create_interface_objects,
+			initialize
+	    end
 
 create
 	make_and_launch
@@ -19,16 +23,20 @@ feature {NONE} -- Initialization
 			-- Initialize and launch application
 		do
 			default_create
-			prepare
 			launch
 		end
 
-	prepare
-			-- Set the default tray icon configuration.
-		local
-			l_tray_icon:TRAY_ICON
+	create_interface_objects
 		do
-			create tray_icon.make_from_file ("icone.ico")		-- Create the icon from file.
+			Precursor {EV_APPLICATION}
+			create tray_icon
+		end
+
+	initialize
+			-- Set the default tray icon configuration.
+		do
+			Precursor {EV_APPLICATION}
+			tray_icon.set_icon_from_file ("icone.ico")		-- Create the icon from file.
 																-- On Windows, it must be a ico file (32x32 or 16x16)
 		--	tray_icon.set_icon_from_ressource (54321)			-- You can also load file from a windows ressource file (on windows)
 																-- On unix, it does nothing (you can keep it there, it will not bug anything)

@@ -34,16 +34,11 @@ feature {NONE} -- Initialization
 	make
 			-- Create and initialize `Current'.
 		local
-			l_tray_icon_pointer:POINTER
+			app_imp: like App_implementation
 		do
-			l_tray_icon_pointer:={TRAY_GTK_EXTERNAL}.gtk_status_icon_new
-			make_common(l_tray_icon_pointer)
-		end
-
-	make_common(a_tray_icon_pointer:POINTER)
-			-- Initialization of `Current'.
-		do
-			set_c_object (a_tray_icon_pointer)
+			set_is_initialized (False)
+			app_imp := App_implementation
+			set_c_object ({TRAY_GTK_EXTERNAL}.gtk_status_icon_new)
 			create activate_action
 			create popup_action
 			real_signal_connect_after (c_object, once "activate", agent App_implementation.do_once_on_idle (agent on_activate), Void)
