@@ -30,7 +30,7 @@ create
 
 feature {NONE} -- Initialization
 
-	old_make (a_interface: like interface)
+	old_make (a_interface: attached like interface)
 			-- <Precursor>
 		do
 			assign_interface (a_interface)
